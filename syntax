@@ -1,0 +1,11 @@
+program = {symbol} ;
+
+symbol = scope|valuable ;
+
+scope = identifier '{' program '}' ;
+
+valuable = identifier ':' (
+	| ':' constant_expression ';'
+	| '=' expression ';'
+	| '{' program '}'
+)

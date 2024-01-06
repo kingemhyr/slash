@@ -1,0 +1,83 @@
+#import other_file.cpp
+
+foo: type;
+
+Foo {
+	number: u64;
+	procedure_pointer: @() -> s32;
+
+	print: (self: @.) -> s32 {
+		..print("%u", self.number);
+	}
+}
+
+foo: Foo;
+
+foo.print();
+
+foo := Foo {field: 0, field2: 0};
+
+Bar {
+	FRIDAY :: 0;
+	SATURDAY :: 1;
+	SUNDAY :: 2;
+}
+
+bar := Bar.FRIDAY;
+bar2: Bar = .SATURDAY;
+
+CONSTANT: u32 : 7;
+
+variable: u32 = 21;
+
+procedure: () -> s32 {
+	return 14;
+}
+
+Position :{
+	row: s64,
+	column: s64,
+}
+
+add: (a: @?Position, b: @Position) -> () {
+	return {
+		.row = a.row + b.row,
+		.column = a.column + b.column,
+	};
+}
+
+start: () -> s32 {
+	p: Position = [row: 7, column: 21];
+	add(p, (14, 42));
+	#assert(p == (21, 63));
+
+	if 0 {
+	}
+	elif 0 {
+	}
+	else {
+	}
+
+	 if 0 {
+
+	}
+	elif 1 {
+	}
+	elif 2 {
+	}
+
+	if false { do_something() }
+
+	if foo == 0; // comparison
+	if foo == (0, 1, 2, 3); // sequential comparison
+	if foo |> (check_foo, check_bar); // disjunctive application
+	if foo &> (check_foo, check_bar); // conjunctive application
+
+my_label:
+
+	jmp label;
+
+	ret r;
+}
+
+#alias(add, addition)
