@@ -1,0 +1,71 @@
+#link "User32" "Kernel32.lib"
+
+start := {
+	win32 :: #import "Windows.h";
+
+	..platform_data.instance = win32.GetModuleHandle(0);
+	win32.FreeConsole();
+
+	Label := @.; # Label is equal to the address of the current instruction.
+
+	#: Implications/if-statements: <condition> '=>' <expression>
+	0 == ..register(instance = ..platform_data.instance) => win32.ExitProcess(1);
+	0 == ..main_window.handle = win32.CreateWindowEx(
+		#: Named arguments
+		dwExStyle					= ..win32.WS_EX_OVERLAPPEDWINDOW,
+		lpClassName, lpWindowName	= 'NAME\0', #: Strings aren't null-terminated by default
+		dwStyle						= ..win32.WS_OVERLAPPEDWINDOW,
+		x, y, nWidth, nHeight		= ..win32.CW_USEDEFAULT,
+		hWndParent, hMenu, lpParam	= 0,
+		hInstance					= ...platform_data.instance,
+	) => ExitProcess(1);
+	win32.ShowWindow(.main_window.handle, win32.SW_SHOW);
+
+	Label(); #: Label invocation (same as a `jmp Label`)
+
+	#: Piping (syntactic sugar)
+	.main_window.handle |> (
+		win32.ShowWindow(win32.SW_SHOW),
+		win32.UpdateWindow(),
+		win32.SetFocus()
+	);
+
+	win32.ExitProcess(0);
+};
+
+
+register: (instance: HINSTANCE) -> (r: u8 = 0) = {
+
+	instance == 0 => {
+		r = 1;
+		return();
+	}, r = 2;
+	register({instance -=1;});
+
+	return := @.;
+};
+
+Window_Show_State :: {
+
+};
+
+Window :: {
+	handle: HWND = 0;
+
+	set_show_state: (state: Window_Show_State) -> Window_Show_State = {
+	};
+};
+
+main_window := Window;
+
+main_window.set_show_state(.hidden);
+
+platform_data := {
+	# Platform-specific stuff
+	#if #PLATFORM == #PLATFORM_WIN64 {
+		instance: HINSTANCE;
+		message: MSG;
+	}
+	#elif #PLATFORM == #PLATFORM_LINUX {
+	}
+};

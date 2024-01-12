@@ -2,35 +2,39 @@
 
 foo: type;
 
-Foo {
-	number: u64;
+Foo := {
+	number: u64 = 69;
 	procedure_pointer: @() -> s32;
 
 	print: (self: @.) -> s32 {
 		..print("%u", self.number);
 	}
-}
+};
 
 foo: Foo;
+assert(foo.number == 69);
 
 foo.print();
 
 foo := Foo {field: 0, field2: 0};
 
-Bar {
-	FRIDAY :: 0;
-	SATURDAY :: 1;
-	SUNDAY :: 2;
-}
+Day :: {sun, mon, tue};
 
-bar := Bar.FRIDAY;
-bar2: Bar = .SATURDAY;
+Day: {
+	SUN :: 0;
+	MON :: 1;
+	TUE :: 2;
+};
 
-CONSTANT: u32 : 7;
+Enum: BRUh
 
-variable: u32 = 21;
+best_day: Day = .mon;
 
-procedure: () -> s32 {
+MY_CONSTANT: u32 : 7;
+
+my_variable: u32 = 21;
+
+my_procedure: () -> s32 {
 	return 14;
 }
 

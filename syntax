@@ -1,11 +1,20 @@
-program = {symbol} ;
+program
+	: {macro|declaration}
+	;
 
-symbol = scope|valuable ;
+path
+	: {'.'} path {'.' path}
+	;
 
-scope = identifier '{' program '}' ;
+macro
+	: '#' path {token}
+	;
 
-valuable = identifier ':' (
-	| ':' constant_expression ';'
-	| '=' expression ';'
-	| '{' program '}'
-)
+declaration
+	: identifier ':' [type]
+		( (':'|'=') expression ';'
+		| '{' {expression ';'} '}'
+		)
+	;
+
+

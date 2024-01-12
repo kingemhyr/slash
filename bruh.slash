@@ -1,0 +1,25 @@
+start := {
+	foo: s32 = 21;
+};
+
+{
+	my_start := start;
+	assert(my_start.foo == 21);
+
+	my_start: start;
+	assert(my_start.foo != 21);
+}
+
+## Fibinacci
+f: (n: u64) -> r: u64 =
+	a <= 2 => ## Implication
+		r = n - 1, ## Consequence
+		r = f(n - 1) + f(n - 2); ## Contrapositive
+
+g := f; ## Aliased
+
+labels := {
+	RETURN(); ## eqv. `goto RETURN`
+
+	RETURN :: @.; ## eqv. `RETURN:`
+}

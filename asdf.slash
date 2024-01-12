@@ -1,0 +1,36 @@
+x := 0;
+y := 0;
+(a, b) := (0, 0);
+
+label(); ## eqv. `jmp label`
+
+## eqv. cmp x; jne bar
+x == a =>
+	foo(),
+	bar();
+
+label :: @.; ## eqv. `label:`
+
+Bar :: {
+	v1: u8 = 0;
+	v2: u8 = 0;
+	v3: u8 = 0;
+}
+
+do_thing :: () -> () {
+
+}
+
+Color :: {
+	r, g, b: u8;
+}
+
+do_foo := {
+
+}
+
+## Make an instance of `Bar` with default values
+bar := Bar;
+
+## Make an instance of `Bar`
+bar: Bar;
