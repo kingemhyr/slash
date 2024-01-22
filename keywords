@@ -1,0 +1,52 @@
+
+## iterator type allows the usage of the increment (`++`) operator which does
+## a range check per increment.
+iter: U8 <- 0..100;
+
+
+
+copy: (n: U64, d: @{'T}, s: @{'T}) {
+	end := d+n;
+	#while d < end {
+		[d] = [s];
+		++d, ++s;
+	}
+
+	## while-loop
+	#while a < b {
+	}
+
+	## for-loop
+	#for i: U32 <- 0..n {
+		continue;
+		break;
+		return;
+	}
+
+	## do-while
+	#until a < b {
+	}
+
+	## loop
+	#continue {
+	}
+
+	## if-else-if-else
+	#if b() {
+	}
+	#else if b() {
+	}
+	#else b() {
+	}
+
+	e ? a : b;
+	e ? a;
+	e ? { a; };
+	e ? { a; } : { b; };
+	
+	{ e; } ? { a; } : { b; };
+}
+
+start: {
+	copy();
+}

@@ -77,5 +77,15 @@ week_day ?
 {4, 2, 3, 1, 2}
     |> enumerate
     |> sort;
-   
+
+float: f32 = 0.0;
+uint: u32 = float'u32; ## cast
+```
+
+```
+#if #os == #os_win32 {
+    #import "User32.lib"
+}
+#elif #os == #os_linux {
+}
 ```
